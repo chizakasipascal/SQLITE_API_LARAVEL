@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
+use App\Models\Produt;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,8 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/products', function () {
-    return 'products';
+Route::get('/getproducts', function () {
+    return Produt::all();
+});
+
+Route::post('/postproducts', function () {
+    return Produt::create([
+        'name'=>'Products one',
+        'slug'=>'Products - one',
+        'description'=>'This is produt one',
+        'price'=>'99,99'
+    ]);
 });
 
 
