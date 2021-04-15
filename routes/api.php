@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\ProductsController;
- 
+use App\Http\Controllers\AuthController;
 
 
 /*
@@ -19,8 +19,14 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::resource('products', ProductsController::class);
-Route::get('products/search/{name}', [ProductsController::class,'search']);
+
+Route::post('register', [AuthController::class,'Register'] );
+
+Route::group(['middleware'=>['auth:sanctum']], function () {
+    Route::resource('products', ProductsController::class);
+    Route::get('products/search/{name}', [ProductsController::class,'search']);
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
