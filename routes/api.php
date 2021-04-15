@@ -19,8 +19,10 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/getproducts', [ProductsController::class,'index']);
-Route::post('/postproducts', [ProductsController::class,'store']);
+Route::resource('products', ProductsController::class);
+
+// Route::get('/getproducts', [ProductsController::class,'index']);
+// Route::post('/postproducts', [ProductsController::class,'store']); 
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
