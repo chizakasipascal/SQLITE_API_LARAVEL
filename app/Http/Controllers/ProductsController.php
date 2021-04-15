@@ -56,7 +56,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-            return Produt::find($id);
+        return Produt::find($id);
     }
 
     /**
