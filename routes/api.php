@@ -19,9 +19,10 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::resource('products', ProductsController::class);
+
 
 Route::group(['middleware'=>['auth:sanctum']], function () {
+    Route::resource('products', ProductsController::class);
     Route::get('products/search/{name}', [ProductsController::class,'search']);
 });
 
