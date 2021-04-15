@@ -20,7 +20,6 @@ use App\Http\Controllers\ProductsController;
 */
 
 Route::get('/getproducts', [ProductsController::class,'index']);
-
 Route::post('/postproducts', [ProductsController::class,'store']);
 
 
