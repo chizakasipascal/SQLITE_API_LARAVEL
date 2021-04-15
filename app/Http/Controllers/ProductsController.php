@@ -27,7 +27,6 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-
         $validatedData = array(
             'name'=>'required',
             'slug'=>'required', 
@@ -35,7 +34,10 @@ class ProductsController extends Controller
         );
         $validator = Validator::make($request->all(), $validatedData);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 401);
+            return response()->json([
+                'Message'=>'Parametre manquant',
+                'Error'=>$validator->errors()
+            ], 401);
         } else {
             return $result= Produt::create($request->all());
             if ($result) {
