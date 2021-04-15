@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produt;
+
 
 class ProductsController extends Controller
 {
@@ -13,7 +15,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        return Produt::all();
     }
 
     /**
@@ -24,7 +26,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Produt::create($request->all());
     }
 
     /**
