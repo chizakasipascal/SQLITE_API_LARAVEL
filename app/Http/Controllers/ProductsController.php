@@ -68,7 +68,9 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $products=Produt::find($id);
+        $products->update($request->all());
+        return $products;
     }
 
     /**
