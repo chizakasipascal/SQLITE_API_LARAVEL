@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Models\User;
-use App\Models\Produt;
+
+use App\Http\Controllers\ProductsController;
+ 
 
 
 /*
@@ -18,20 +19,8 @@ use App\Models\Produt;
 |
 */
 
-Route::get('/getproducts', function () {
-    return Produt::all();
-});
-
-Route::post('/postproducts', function () {
-    return Produt::create([
-        'name'=>'Products one',
-        'slug'=>'Products - one',
-        'description'=>'This is produt one',
-        'price'=>'99,99'
-    ]);
-});
-
-
+Route::resource('products', ProductsController::class);
+Route::get('products/search/{name}', [ProductsController::class,'search']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
