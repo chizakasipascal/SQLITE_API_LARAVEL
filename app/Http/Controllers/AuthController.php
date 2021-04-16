@@ -14,7 +14,7 @@ class AuthController extends Controller
     {
         $validatedData = array(
             'name'=>'required|string',
-            'email'=>'required|string |unique:users,email', 
+            'email'=>'required|string |unique:users,email|email', 
             'password'=>'required|string|confirmed',
         );
         $validator = Validator::make($request->all(), $validatedData);
@@ -78,5 +78,12 @@ class AuthController extends Controller
             return response($response,201);
         }
        
+    }
+
+    public function Logout(Request $request){
+        auth()->user()->token_get_all->delete();
+        return [
+            'Message'=>'Logout !!'
+        ];
     }
 }
