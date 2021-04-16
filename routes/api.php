@@ -21,10 +21,12 @@ use App\Http\Controllers\AuthController;
 
 
 Route::post('register', [AuthController::class,'Register'] );
+Route::post('login', [AuthController::class,'Login'] );
 
 Route::group(['middleware'=>['auth:sanctum']], function () {
     Route::resource('products', ProductsController::class);
     Route::get('products/search/{name}', [ProductsController::class,'search']);
+    Route::post('logout', [AuthController::class,'Logout'] );
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
