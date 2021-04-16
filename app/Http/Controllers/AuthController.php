@@ -41,33 +41,33 @@ class AuthController extends Controller
        
     }
 
-
+    /**
+     * Method 
+     */
     public function Login(Request $request)
     {
-        $validatedData = array(
-            'email'=>'required', 
-            'password'=>'required',
-        );
-        $validator = Validator::make($request->all(), $validatedData);
-        if ($validator->fails()) {
-            return response()->json([
-                'Message'=>'Parametre manquant',
-                'Error'=>$validator->errors()
-            ], 401);
-        } else {
+        // $validatedData = array(
+        //     'email'=>'required', 
+        //     'password'=>'required',
+        // );
+        // $validator = Validator::make($request->all(), $validatedData);
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'Message'=>'Parametre manquant',
+        //         'Error'=>$validator->errors()
+        //     ], 401);
+        // }  
 
             //Check email 
             $user=User::where('email',$request->email)->first();
-
             //Check password
-            if(!$user || !Hash::check($request->password,$user->passwrod)){
+            if (!$user ||!Hash::check($request->password,$user->password)) {
                 return response([
-                    'Message'=>['Uttilisateur not trouver'],
-                    'USER ERROR'=>$user,
-                ],404);
+                    'Message'=>['Coodonner not valider']
+                    //'USER ERROR'=>$user,
+                ],401);
             }
-            
-            
+
             $token=$user->createToken($request->password)->plainTextToken;
     
             $response=[ 
@@ -76,10 +76,15 @@ class AuthController extends Controller
             ];
     
             return response($response,201);
-        }
+        
        
     }
 
+    /***
+     * This function desconnected user
+     * 
+     * Helo you to logout ! 
+     */
     public function Logout(Request $request){
         auth()->user()->tokens()->delete();
         return [
